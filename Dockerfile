@@ -10,7 +10,17 @@ ENV DATABASE_USER=""
 ENV DATABASE_PASSWORD=""
 
 COPY gitbucket.sh /opt/gitbucket.sh
-ADD https://github.com/gitbucket/gitbucket/releases/download/4.31.2/gitbucket.war /opt/gitbucket.war
+
+RUN set -x \
+    && groupadd -r gitbucket \
+    && useradd -r -s /bin/false -d /gitbucket -M -g gitbucket gitbucket \
+    && apt-get update \
+    && apt-get install -y gosu wget \
+    && wget -O "/opt/gitbucket.war" "https://github.com/gitbucket/gitbucket/releases/download/4.31.2/gitbucket.war" \
+    && chmod 444 "/opt/gitbucket.war" \
+    && apt-get purge -y --auto-remove wget \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 VOLUME /gitbucket
 
