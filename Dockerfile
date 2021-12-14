@@ -2,7 +2,7 @@ FROM openjdk:jre-slim
 LABEL maintainer="HimaJyun"
 
 LABEL org.label-schema.schema-version="1.0"
-LABEL org.label-schema.version="4.37.0"
+LABEL org.label-schema.version="4.37.1"
 LABEL org.label-schema.vcs-url="https://github.com/HimaJyun/gitbucket-docker"
 
 ENV DATABASE_URL=""
@@ -16,7 +16,7 @@ RUN set -x \
     && useradd -r -s /bin/false -d /gitbucket -M -g gitbucket gitbucket \
     && apt-get update \
     && apt-get install -y gosu wget \
-    && wget -O "/opt/gitbucket.war" "https://github.com/gitbucket/gitbucket/releases/download/4.37.0/gitbucket.war" \
+    && wget -O "/opt/gitbucket.war" "https://github.com/gitbucket/gitbucket/releases/download/4.37.1/gitbucket.war" \
     && chmod 444 "/opt/gitbucket.war" \
     && apt-get purge -y --auto-remove wget \
     && apt-get clean \
